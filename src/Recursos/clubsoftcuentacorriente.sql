@@ -5,21 +5,21 @@ SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
 
 -- -----------------------------------------------------
--- Schema softclubcuentacorriente
+-- Schema clubsoftcuentacorriente
 -- -----------------------------------------------------
 
 show databases;
 
 -- -----------------------------------------------------
--- Schema softclubcuentacorriente
+-- Schema clubsoftcuentacorriente
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `softclubcuentacorriente` DEFAULT CHARACTER SET utf8 ;
-USE `softclubcuentacorriente` ;
+CREATE SCHEMA IF NOT EXISTS `clubsoftcuentacorriente` DEFAULT CHARACTER SET utf8 ;
+USE `clubsoftcuentacorriente` ;
 
 -- -----------------------------------------------------
 -- Table `softclubcuentacorriente`.`cctabla`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `softclubcuentacorriente`.`cctabla` (
+CREATE TABLE IF NOT EXISTS `clubsoftcuentacorriente`.`cctabla` (
   `id_cctabla` INT NOT NULL AUTO_INCREMENT,
   `fecha_cctabla` DATE NOT NULL,
   `motivo_cctabla` VARCHAR(255) NOT NULL,
@@ -32,9 +32,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `softclubcuentacorriente`.`ccarchivo`
+-- Table `clubsoftcuentacorriente`.`ccarchivo`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `softclubcuentacorriente`.`ccarchivo` (
+CREATE TABLE IF NOT EXISTS `clubsoftcuentacorriente`.`ccarchivo` (
   `id_ccarchivo` INT NOT NULL AUTO_INCREMENT,
   `id_cctabla` INT NOT NULL,
   `nombre_ccarchivo` VARCHAR(45) NOT NULL,
@@ -44,7 +44,7 @@ CREATE TABLE IF NOT EXISTS `softclubcuentacorriente`.`ccarchivo` (
   INDEX `id_cctabla_idx` (`id_cctabla` ASC) VISIBLE,
   CONSTRAINT `id_cctabla`
     FOREIGN KEY (`id_cctabla`)
-    REFERENCES `softclubcuentacorriente`.`cctabla` (`id_cctabla`)
+    REFERENCES `clubsoftcuentacorriente`.`cctabla` (`id_cctabla`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
