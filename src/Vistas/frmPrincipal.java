@@ -50,11 +50,11 @@ public class frmPrincipal extends javax.swing.JFrame {
         );
 
         mnuEscritorio.setMnemonic('f');
-        mnuEscritorio.setText("Ventanas");
+        mnuEscritorio.setText("Cuenta Corriente");
         mnuEscritorio.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
         mniCuentaCorriente.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        mniCuentaCorriente.setText("Cuenta Corriente: listas");
+        mniCuentaCorriente.setText("Listar");
         mniCuentaCorriente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mniCuentaCorrienteActionPerformed(evt);

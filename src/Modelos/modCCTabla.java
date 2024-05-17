@@ -222,27 +222,24 @@ public class modCCTabla {
         }
     }
     
-    public void Borrar(int selectedRow, Object idRow){
+    public void Borrar(Object idRow) {
         con = new logConexion();
         Connection accesoBBDD = con.conectar();
+        
         try{
             ps = accesoBBDD.prepareStatement("DELETE FROM cctabla WHERE id_cctabla = ?");
             ps.setObject(1, idRow);
-            
+
             int rowsAffected = ps.executeUpdate();
-            if (rowsAffected > 0){
+            if (rowsAffected > 0) {
                 JOptionPane.showMessageDialog(null, "Fila borrada con éxito");
+            } else {
+                JOptionPane.showMessageDialog(null, "No se encontró la fila para borrar");
             }
-            else{
-                JOptionPane.showMessageDialog(null, "No se encontró la fila");
-            }
-        }catch (SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         } finally {
             try {
-                if (rs != null) {
-                    rs.close();
-                }
                 if (ps != null) {
                     ps.close();
                 }
@@ -253,5 +250,24 @@ public class modCCTabla {
                 e.printStackTrace();
             }
         }
+    }
+    
+    public int getIDSelectedRow(int selectedRow){
+        int id = -1;
+        con = new logConexion();
+        Connection accesoBBDD = con.conectar();
+        
+        try{
+            ps = accesoBBDD.prepareStatement("SELECT id_cctabla FROM cctabla LIMIT ?, 1;");
+            ps.setInt(1, selectedRow);
+            rs = ps.executeQuery();
+
+            if (rs.next()) {
+                id = rs.getInt("id_cctabla");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    return id;
     }
 }

@@ -6,6 +6,7 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import javax.swing.table.DefaultTableModel;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -282,7 +283,8 @@ public class friCCListar extends javax.swing.JInternalFrame {
         }
         
         double saldoTot = mcctbl.calcSaldo(tblModel);
-        lblSaldoFiltroCalculo.setText("$ -" + String.valueOf(saldoTot));
+        saldoTot = -(saldoTot);
+        lblSaldoFiltroCalculo.setText("$" + String.valueOf(saldoTot));
     }//GEN-LAST:event_btnBuscarMouseClicked
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
@@ -311,7 +313,8 @@ public class friCCListar extends javax.swing.JInternalFrame {
         }
         
         double saldoTot = mcctbl.calcSaldo(tblModel);
-        lblSaldoTotalCalculo.setText("$ -" + String.valueOf(saldoTot));
+        saldoTot = -(saldoTot);
+        lblSaldoTotalCalculo.setText("$" + String.valueOf(saldoTot));
         lblSaldoFiltroCalculo.setText("$0");
     }//GEN-LAST:event_formInternalFrameOpened
 
@@ -325,17 +328,23 @@ public class friCCListar extends javax.swing.JInternalFrame {
 
         if (isFocusedRow != -1) {
             int selectedRow = tblCuentaCliente.getSelectedRow();
-            Object idRow = tblCuentaCliente.getValueAt(selectedRow, 0);
             if (selectedRow != -1) {
-                mcctbl.Borrar(selectedRow, idRow);
-                // Eliminar la fila del DefaultTableModel
-                ((DefaultTableModel) tblCuentaCliente.getModel()).removeRow(selectedRow);
-            } else {
-                System.out.println("No hay ninguna fila seleccionada.");
-            }
-        } else {
-            System.out.println("El clic no fue en ninguna fila.");
-        }
+                int idRow = mcctbl.getIDSelectedRow(selectedRow);
+                if (idRow != -1) {
+                    // Crear un JOptionPane personalizado con botones "Sí" y "No"
+                    int opcion = JOptionPane.showOptionDialog(null, "¿Borrar el registro completo?", "Confirmar Borrado",
+                        JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new Object[] {"Sí", "No"}, "Sí");
+
+                    if (opcion == JOptionPane.YES_OPTION) {
+                        mcctbl.Borrar(idRow); // Pasar el ID para borrar
+                        // Eliminar la fila del DefaultTableModel
+                        ((DefaultTableModel) tblCuentaCliente.getModel()).removeRow(selectedRow);
+                    } else {
+                        System.out.println("Operación de borrado cancelada.");
+                    }
+                }
+            } 
+        } 
     }//GEN-LAST:event_btnEliminarMouseClicked
 
 
