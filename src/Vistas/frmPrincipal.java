@@ -93,8 +93,8 @@ public class frmPrincipal extends javax.swing.JFrame {
      */
     public static void main(String args[]) {
         
-        logConexion logconexion = new logConexion();
-        logconexion.conectar();
+        //logConexion logconexion = new logConexion();
+        //logconexion.conectar();
         
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

@@ -5,6 +5,10 @@ import Controladores.*;
 import java.util.List;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import javax.swing.JInternalFrame;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
 
 public class modCCTabla {
     //CAMPOS DE CONEXIÓN
@@ -92,7 +96,22 @@ public class modCCTabla {
         this.comprobante_cctabla = comprobante_cctabla;
     }
     
-    //SENTENCIAS SQL
+    //MÉTODOS ESPECÍFICOS
+    public double calcSaldo(DefaultTableModel tblModel){
+        double sum = 0;
+        int colIndex = 2;
+        int rowCount = tblModel.getRowCount();
+        for(int i = 0; i < rowCount; i++){
+            Object valueAt = tblModel.getValueAt(i, colIndex);
+            
+            if(valueAt instanceof Double){
+                sum += (Double) valueAt;
+            }
+        }
+        return sum;
+    }
+    
+    //MÉTODOS SQL
     private PreparedStatement ps;
     private ResultSet rs;
     private List<Object[]> result = new ArrayList<>();
@@ -111,23 +130,28 @@ public class modCCTabla {
             }
             if (tipoBusqueda.equals("Fecha")){
                 ps = accesoBBDD.prepareStatement("SELECT * FROM cctabla WHERE fecha_cctabla = ?");
+                ps.setString(1, filtroBusqueda);
             }
             if (tipoBusqueda.equals("Motivo")){
                 ps = accesoBBDD.prepareStatement("SELECT * FROM cctabla WHERE motivo_cctabla = ?");
+                ps.setString(1, filtroBusqueda);
             }
             if (tipoBusqueda.equals("Monto")){
                 ps = accesoBBDD.prepareStatement("SELECT * FROM cctabla WHERE monto_cctabla = ?");
+                ps.setString(1, filtroBusqueda);
             }
             if (tipoBusqueda.equals("Metodo")){
                 ps = accesoBBDD.prepareStatement("SELECT * FROM cctabla WHERE metodo_cctabla = ?");
+                ps.setString(1, filtroBusqueda);
             }
             if (tipoBusqueda.equals("Estado")){
                 ps = accesoBBDD.prepareStatement("SELECT * FROM cctabla WHERE estado_cctabla = ?");
+                ps.setString(1, filtroBusqueda);
             }
             if (tipoBusqueda.equals("Comprobante")){
                 ps = accesoBBDD.prepareStatement("SELECT * FROM cctabla WHERE comprobante_cctabla = ?");
-            }
                 ps.setString(1, filtroBusqueda);
+            }
                 rs = ps.executeQuery();
                 
                 while(rs.next()){
@@ -141,6 +165,77 @@ public class modCCTabla {
                     };
                     result.add(rowData);
                 }
+        }catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+                if (accesoBBDD != null) {
+                    accesoBBDD.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+    
+    public void Filtrar(){
+        con = new logConexion();
+        Connection accesoBBDD = con.conectar();
+        
+        try{
+            ps = accesoBBDD.prepareStatement("SELECT * FROM cctabla");
+            rs = ps.executeQuery();
+                
+            while(rs.next()){
+                Object[] rowData = new Object[]{
+                    rs.getDate("fecha_cctabla"),
+                    rs.getString("motivo_cctabla"),
+                    rs.getDouble("monto_cctabla"),
+                    rs.getString("metodo_cctabla"),
+                    rs.getString("estado_cctabla"),
+                    rs.getString("comprobante_cctabla")
+                };
+                result.add(rowData);
+            }
+        }catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+                if (accesoBBDD != null) {
+                    accesoBBDD.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+    
+    public void Borrar(int selectedRow, Object idRow){
+        con = new logConexion();
+        Connection accesoBBDD = con.conectar();
+        try{
+            ps = accesoBBDD.prepareStatement("DELETE FROM cctabla WHERE id_cctabla = ?");
+            ps.setObject(1, idRow);
+            
+            int rowsAffected = ps.executeUpdate();
+            if (rowsAffected > 0){
+                JOptionPane.showMessageDialog(null, "Fila borrada con éxito");
+            }
+            else{
+                JOptionPane.showMessageDialog(null, "No se encontró la fila");
+            }
         }catch (SQLException e) {
             e.printStackTrace();
         } finally {

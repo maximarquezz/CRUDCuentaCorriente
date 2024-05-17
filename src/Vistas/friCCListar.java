@@ -2,14 +2,22 @@ package Vistas;
 
 import Modelos.modCCTabla;
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import javax.swing.table.DefaultTableModel;
 import java.util.List;
-import java.util.ArrayList;
+import javax.swing.ListSelectionModel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 public class friCCListar extends javax.swing.JInternalFrame {
 
     public friCCListar() {
         initComponents();
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        int x = (screenSize.width - getWidth()) / 2;
+        int y = (screenSize.height - getHeight()) / 2;
+        setLocation(x, y);
     }
 
     @SuppressWarnings("unchecked")
@@ -33,30 +41,53 @@ public class friCCListar extends javax.swing.JInternalFrame {
         btnAgregar = new javax.swing.JButton();
         lblNombreCliente1 = new javax.swing.JLabel();
         panComprobante = new javax.swing.JPanel();
-        lblSaldo = new javax.swing.JLabel();
-        lblSaldoCalculo = new javax.swing.JLabel();
+        lblSaldoTotal = new javax.swing.JLabel();
+        lblSaldoTotalCalculo = new javax.swing.JLabel();
         lblFiltrarPor = new javax.swing.JLabel();
         cmbTipoFiltro = new javax.swing.JComboBox<>();
         lblCCStatus = new javax.swing.JLabel();
+        lblSaldoFiltro = new javax.swing.JLabel();
+        lblSaldoFiltroCalculo = new javax.swing.JLabel();
 
         jButton1.setText("jButton1");
 
         setClosable(true);
         setTitle("Cuenta Corriente: listar");
+        addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
+            public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameClosed(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeactivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeiconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameIconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
+                formInternalFrameOpened(evt);
+            }
+        });
 
+        tblCuentaCliente.setAutoCreateRowSorter(true);
         tblCuentaCliente.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"1990/06/06", "Cuota", "$500", "Efectivo", "Pagada", "Factura A"},
-                {"1990/06/06", "Cuota", "$500", "Mercado", "Pendiente", "Factura B"}
+
             },
             new String [] {
                 "Fecha", "Motivo", "Monto", "Metodo", "Estado", "Comprobante"
             }
         ));
         tblCuentaCliente.setToolTipText("");
-        tblCuentaCliente.setColumnSelectionAllowed(true);
         tblCuentaCliente.setGridColor(new java.awt.Color(204, 204, 255));
-        tblCuentaCliente.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tblCuentaCliente.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+        tblCuentaCliente.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblCuentaClienteMouseClicked(evt);
+            }
+        });
         scpCuentaCliente.setViewportView(tblCuentaCliente);
 
         btnBuscar.setText("Buscar");
@@ -93,6 +124,11 @@ public class friCCListar extends javax.swing.JInternalFrame {
         btnEditar.setText("Editar");
 
         btnEliminar.setText("Eliminar");
+        btnEliminar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnEliminarMouseClicked(evt);
+            }
+        });
 
         btnComprobante.setText("Ver comprobante");
 
@@ -120,12 +156,12 @@ public class friCCListar extends javax.swing.JInternalFrame {
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        lblSaldo.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        lblSaldo.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        lblSaldo.setText("Saldo:");
+        lblSaldoTotal.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblSaldoTotal.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lblSaldoTotal.setText("Saldo total:");
 
-        lblSaldoCalculo.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        lblSaldoCalculo.setText("-$1000");
+        lblSaldoTotalCalculo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lblSaldoTotalCalculo.setText("-$1000");
 
         lblFiltrarPor.setText("Filtrar por...");
 
@@ -134,6 +170,12 @@ public class friCCListar extends javax.swing.JInternalFrame {
         lblCCStatus.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblCCStatus.setText("Estado de la cuenta corriente");
 
+        lblSaldoFiltro.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblSaldoFiltro.setText("Saldo (con filtro):");
+
+        lblSaldoFiltroCalculo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lblSaldoFiltroCalculo.setText("-$500");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -141,19 +183,23 @@ public class friCCListar extends javax.swing.JInternalFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(21, 21, 21)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(scpCuentaCliente, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 579, Short.MAX_VALUE)
+                    .addComponent(scpCuentaCliente, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 592, Short.MAX_VALUE)
                     .addComponent(lblNombreCliente, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnAgregar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnEditar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnEliminar)
+                        .addGap(18, 18, 18)
+                        .addComponent(lblSaldoFiltro)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblSaldoFiltroCalculo)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(lblSaldo)
+                        .addComponent(lblSaldoTotal)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblSaldoCalculo)
-                        .addGap(33, 33, 33))
+                        .addComponent(lblSaldoTotalCalculo)
+                        .addGap(12, 12, 12))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(txtBusqueda)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -196,13 +242,15 @@ public class friCCListar extends javax.swing.JInternalFrame {
                     .addComponent(panComprobante, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblSaldoCalculo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblSaldo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblSaldoTotalCalculo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblSaldoTotal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnAgregar)
                     .addComponent(btnEditar)
                     .addComponent(btnEliminar)
-                    .addComponent(btnComprobante, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                    .addComponent(btnComprobante, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblSaldoFiltro)
+                    .addComponent(lblSaldoFiltroCalculo))
+                .addGap(15, 15, 15))
         );
 
         pack();
@@ -232,6 +280,9 @@ public class friCCListar extends javax.swing.JInternalFrame {
         for(Object[] rowD : rowData){
             tblModel.addRow(rowD);
         }
+        
+        double saldoTot = mcctbl.calcSaldo(tblModel);
+        lblSaldoFiltroCalculo.setText("$ -" + String.valueOf(saldoTot));
     }//GEN-LAST:event_btnBuscarMouseClicked
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
@@ -239,14 +290,53 @@ public class friCCListar extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void txtBusquedaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtBusquedaFocusGained
-        /*txtBusqueda.setForeground(Color.BLACK);
-        txtBusqueda.setText("");*/
+        txtBusqueda.setForeground(Color.BLACK);
+        txtBusqueda.setText("");
     }//GEN-LAST:event_txtBusquedaFocusGained
 
     private void txtBusquedaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtBusquedaFocusLost
         /*txtBusqueda.setForeground(Color.GRAY);
         txtBusqueda.setText("Buscar...");*/
     }//GEN-LAST:event_txtBusquedaFocusLost
+
+    private void formInternalFrameOpened(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameOpened
+        DefaultTableModel tblModel = (DefaultTableModel) tblCuentaCliente.getModel();
+
+        modCCTabla mcctbl = new modCCTabla();
+        mcctbl.Filtrar();
+        
+        List<Object[]> rowData = mcctbl.getResult();
+        for(Object[] rowD : rowData){
+            tblModel.addRow(rowD);
+        }
+        
+        double saldoTot = mcctbl.calcSaldo(tblModel);
+        lblSaldoTotalCalculo.setText("$ -" + String.valueOf(saldoTot));
+        lblSaldoFiltroCalculo.setText("$0");
+    }//GEN-LAST:event_formInternalFrameOpened
+
+    private void tblCuentaClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblCuentaClienteMouseClicked
+        
+    }//GEN-LAST:event_tblCuentaClienteMouseClicked
+
+    private void btnEliminarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEliminarMouseClicked
+        int isFocusedRow = tblCuentaCliente.rowAtPoint(evt.getPoint());
+        modCCTabla mcctbl = new modCCTabla();
+
+        if (isFocusedRow != -1) {
+            int selectedRow = tblCuentaCliente.getSelectedRow();
+            Object idRow = tblCuentaCliente.getValueAt(selectedRow, 0);
+            if (selectedRow != -1) {
+                mcctbl.Borrar(selectedRow, idRow);
+                // Eliminar la fila del DefaultTableModel
+                ((DefaultTableModel) tblCuentaCliente.getModel()).removeRow(selectedRow);
+            } else {
+                System.out.println("No hay ninguna fila seleccionada.");
+            }
+        } else {
+            System.out.println("El clic no fue en ninguna fila.");
+        }
+    }//GEN-LAST:event_btnEliminarMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -261,8 +351,10 @@ public class friCCListar extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lblFiltrarPor;
     private javax.swing.JLabel lblNombreCliente;
     private javax.swing.JLabel lblNombreCliente1;
-    private javax.swing.JLabel lblSaldo;
-    private javax.swing.JLabel lblSaldoCalculo;
+    private javax.swing.JLabel lblSaldoFiltro;
+    private javax.swing.JLabel lblSaldoFiltroCalculo;
+    private javax.swing.JLabel lblSaldoTotal;
+    private javax.swing.JLabel lblSaldoTotalCalculo;
     private javax.swing.JPanel panComprobante;
     private javax.swing.JScrollPane scpCuentaCliente;
     private javax.swing.JTable tblCuentaCliente;
