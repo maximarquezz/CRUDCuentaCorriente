@@ -6,6 +6,7 @@ package Vistas;
 
 import Controladores.logConexion;
 import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 /**
  *
@@ -50,11 +51,11 @@ public class frmPrincipal extends javax.swing.JFrame {
         );
 
         mnuEscritorio.setMnemonic('f');
-        mnuEscritorio.setText("Ventanas");
+        mnuEscritorio.setText("Cuenta Corriente");
         mnuEscritorio.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
         mniCuentaCorriente.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        mniCuentaCorriente.setText("Cuenta Corriente: listas");
+        mniCuentaCorriente.setText("Listar");
         mniCuentaCorriente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mniCuentaCorrienteActionPerformed(evt);
@@ -93,8 +94,9 @@ public class frmPrincipal extends javax.swing.JFrame {
      */
     public static void main(String args[]) {
         
-        logConexion logconexion = new logConexion();
-        logconexion.conectar();
+        
+        //logConexion logconexion = new logConexion();
+        //logconexion.conectar();
         
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -118,6 +120,20 @@ public class frmPrincipal extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(frmPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+
+        try {
+            UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
+        } catch (UnsupportedLookAndFeelException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+
+
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
