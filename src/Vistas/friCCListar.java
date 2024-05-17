@@ -7,9 +7,6 @@ import java.awt.Toolkit;
 import javax.swing.table.DefaultTableModel;
 import java.util.List;
 import javax.swing.JOptionPane;
-import javax.swing.ListSelectionModel;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 
 public class friCCListar extends javax.swing.JInternalFrame {
 
@@ -25,14 +22,10 @@ public class friCCListar extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
         scpCuentaCliente = new javax.swing.JScrollPane();
         tblCuentaCliente = new javax.swing.JTable();
         tblCuentaCliente.setDefaultEditor(Object.class, null);
-        scpCuentaCliente.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
-        scpCuentaCliente.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         tblCuentaCliente.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
-
         btnBuscar = new javax.swing.JButton();
         txtBusqueda = new javax.swing.JTextField();
         lblNombreCliente = new javax.swing.JLabel();
@@ -49,8 +42,6 @@ public class friCCListar extends javax.swing.JInternalFrame {
         lblCCStatus = new javax.swing.JLabel();
         lblSaldoFiltro = new javax.swing.JLabel();
         lblSaldoFiltroCalculo = new javax.swing.JLabel();
-
-        jButton1.setText("jButton1");
 
         setClosable(true);
         setTitle("Cuenta Corriente: listar");
@@ -355,7 +346,6 @@ public class friCCListar extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JComboBox<String> cmbTipoFiltro;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel lblCCStatus;
     private javax.swing.JLabel lblFiltrarPor;
     private javax.swing.JLabel lblNombreCliente;
