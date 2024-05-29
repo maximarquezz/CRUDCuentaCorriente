@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import java.util.Date;
 
 public class modCCTabla {
     //CAMPOS DE CONEXIÓN
@@ -14,54 +13,39 @@ public class modCCTabla {
     
     //CAMPOS DE LA BBDD
     private int id_cctabla;
-    private java.util.Date fecha_cctabla;
-    private String motivo_cctabla;
-    private double monto_cctabla;
-    private String metodo_cctabla;
-    private String estado_cctabla;
-    private String comprobante_cctabla;
-
-    //CONSTRUCTORES
-    public modCCTabla(int id_cctabla, java.util.Date fecha_cctabla, String motivo_cctabla, double monto_cctabla, String metodo_cctabla, String estado_cctabla, String comprobante_cctabla) {
-        this.id_cctabla = id_cctabla;
-        this.fecha_cctabla = fecha_cctabla;
-        this.motivo_cctabla = motivo_cctabla;
-        this.monto_cctabla = monto_cctabla;
-        this.metodo_cctabla = metodo_cctabla;
-        this.estado_cctabla = estado_cctabla;
-        this.comprobante_cctabla = comprobante_cctabla;
-    }
-
-    public modCCTabla() {
-        
-    } 
+    private static java.util.Date fecha_cctabla;
+    private static String motivo_cctabla;
+    private static double monto_cctabla;
+    private static String metodo_cctabla;
+    private static String estado_cctabla;
+    private static String comprobante_cctabla;
 
     //GETTERS
     public int getId_cctabla() {
         return id_cctabla;
     }
 
-    public java.util.Date getFecha_cctabla() {
+    public static java.util.Date getFecha_cctabla() {
         return fecha_cctabla;
     }
 
-    public String getMotivo_cctabla() {
+    public static String getMotivo_cctabla() {
         return motivo_cctabla;
     }
 
-    public double getMonto_cctabla() {
+    public static double getMonto_cctabla() {
         return monto_cctabla;
     }
 
-    public String getMetodo_cctabla() {
+    public static String getMetodo_cctabla() {
         return metodo_cctabla;
     }
 
-    public String getEstado_cctabla() {
+    public static String getEstado_cctabla() {
         return estado_cctabla;
     }
 
-    public String getComprobante_cctabla() {
+    public static String getComprobante_cctabla() {
         return comprobante_cctabla;
     }
     
@@ -353,14 +337,14 @@ public class modCCTabla {
             ps.setString(4, metodo_cctabla);
             ps.setString(5, estado_cctabla);
             ps.setString(6, comprobante_cctabla);
-            ps.setInt(6, idRow);
+            ps.setInt(7, idRow);
             
             int filasEditadas = ps.executeUpdate();
             if (filasEditadas > 0){
-                JOptionPane.showMessageDialog(null, "Filas editadas con éxito (SQL)");
+                JOptionPane.showMessageDialog(null, "Filas editadas con éxito");
             }
             else{
-                JOptionPane.showMessageDialog(null, "No se han editado las filas (SQL)");
+                JOptionPane.showMessageDialog(null, "No se han editado las filas");
             }  
         } catch(Exception e){
             e.printStackTrace();

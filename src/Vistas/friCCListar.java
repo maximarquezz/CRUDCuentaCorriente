@@ -402,12 +402,18 @@ public class friCCListar extends javax.swing.JInternalFrame {
                 int idRow = mcctbl.getIDSelectedRow(selectedRow);
                 if (idRow != -1) {
                     DefaultTableModel tblModel = getTableModel();
-                    mcctbl.setFecha_cctabla((Date) tblModel.getValueAt(selectedRow, 0));
+                    mcctbl.setFecha_cctabla((java.util.Date) tblModel.getValueAt(selectedRow, 0));
+                    System.out.println(tblModel.getValueAt(selectedRow, 0));
                     mcctbl.setMotivo_cctabla((String) tblModel.getValueAt(selectedRow, 1));
+                    System.out.println(tblModel.getValueAt(selectedRow, 1));
                     mcctbl.setMonto_cctabla((double) tblModel.getValueAt(selectedRow, 2));
+                    System.out.println(tblModel.getValueAt(selectedRow, 2));
                     mcctbl.setMetodo_cctabla((String) tblModel.getValueAt(selectedRow, 3));
+                    System.out.println(tblModel.getValueAt(selectedRow, 3));
                     mcctbl.setEstado_cctabla((String) tblModel.getValueAt(selectedRow, 4));
+                    System.out.println(tblModel.getValueAt(selectedRow, 4));
                     mcctbl.setComprobante_cctabla((String) tblModel.getValueAt(selectedRow, 5));
+                    System.out.println(tblModel.getValueAt(selectedRow, 5));
                     
                     mcctbl.setIfEditWindowOpened(true);
                     mcctbl.setIdOfEditWindow(idRow);

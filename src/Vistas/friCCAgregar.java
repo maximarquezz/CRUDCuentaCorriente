@@ -3,13 +3,10 @@ package Vistas;
 import Modelos.modCCTabla;
 import java.awt.Dimension;
 import java.awt.Toolkit;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.Date;
-import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
-
 
 public class friCCAgregar extends javax.swing.JInternalFrame {
 
@@ -207,7 +204,6 @@ public class friCCAgregar extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-        // TODO add your handling code here:
         dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
 
@@ -224,29 +220,45 @@ public class friCCAgregar extends javax.swing.JInternalFrame {
     private void btnAceptarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAceptarMouseClicked
         modCCTabla mcctbl = new modCCTabla();
         
-        Date obtenerFecha = jdcFecha.getDate();
-        java.sql.Date fecha_cctabla = new java.sql.Date(obtenerFecha.getTime());
-        String motivo_cctabla = txaMotivo.getText();
-        Double monto_cctabla = Double.valueOf(txtMonto.getText());
-        String metodo_cctabla = (String) cmbMetodo.getSelectedItem();
-        String estado_cctabla = (String) cmbEstado.getSelectedItem();
-        String comprobante_cctabla = txtComprobante.getText();
-
-        if((fecha_cctabla.toString().isEmpty())){
-            JOptionPane.showMessageDialog(null, "El campo \"Fecha\" no puede estar vacío");
-        }else if(motivo_cctabla.isEmpty()){
-            JOptionPane.showMessageDialog(null, "El campo \"Motivo\" no puede estar vacío");
-        }else if((monto_cctabla.toString().isEmpty())){
-            JOptionPane.showMessageDialog(null, "El campo \"Monto\" no puede estar vacío");
-        }else if(metodo_cctabla.isEmpty()){
-            JOptionPane.showMessageDialog(null, "El campo \"Metodo\" no puede estar vacío");
-        }else if(estado_cctabla.isEmpty()){
-            JOptionPane.showMessageDialog(null, "El campo \"Estado\" no puede estar vacío");
-        }else{
-            mcctbl.Insertar(fecha_cctabla, motivo_cctabla, monto_cctabla, metodo_cctabla, estado_cctabla, comprobante_cctabla);
-            dispose();
+        if(mcctbl.getIfEditWindowOpened()){
+            Date obtenerFecha = jdcFecha.getDate();
+            java.sql.Date fecha_cctabla = new java.sql.Date(obtenerFecha.getTime());
+            String motivo_cctabla = txaMotivo.getText();
+            Double monto_cctabla = Double.valueOf(txtMonto.getText());
+            String metodo_cctabla = (String) cmbMetodo.getSelectedItem();
+            String estado_cctabla = (String) cmbEstado.getSelectedItem();
+            String comprobante_cctabla = txtComprobante.getText();
+            
+            mcctbl.Editar(fecha_cctabla, motivo_cctabla, monto_cctabla, metodo_cctabla, estado_cctabla, comprobante_cctabla);
             mcctbl.setIfEditWindowOpened(false);
+            dispose();
         }
+        else{
+            Date obtenerFecha = jdcFecha.getDate();
+            java.sql.Date fecha_cctabla = new java.sql.Date(obtenerFecha.getTime());
+            String motivo_cctabla = txaMotivo.getText();
+            Double monto_cctabla = Double.valueOf(txtMonto.getText());
+            String metodo_cctabla = (String) cmbMetodo.getSelectedItem();
+            String estado_cctabla = (String) cmbEstado.getSelectedItem();
+            String comprobante_cctabla = txtComprobante.getText();
+
+            if((fecha_cctabla.toString().isEmpty())){
+                JOptionPane.showMessageDialog(null, "El campo \"Fecha\" no puede estar vacío");
+            }else if(motivo_cctabla.isEmpty()){
+                JOptionPane.showMessageDialog(null, "El campo \"Motivo\" no puede estar vacío");
+            }else if((monto_cctabla.toString().isEmpty())){
+                JOptionPane.showMessageDialog(null, "El campo \"Monto\" no puede estar vacío");
+            }else if(metodo_cctabla.isEmpty()){
+                JOptionPane.showMessageDialog(null, "El campo \"Metodo\" no puede estar vacío");
+            }else if(estado_cctabla.isEmpty()){
+                JOptionPane.showMessageDialog(null, "El campo \"Estado\" no puede estar vacío");
+            }else{
+                mcctbl.Insertar(fecha_cctabla, motivo_cctabla, monto_cctabla, metodo_cctabla, estado_cctabla, comprobante_cctabla);
+                dispose();
+                mcctbl.setIfEditWindowOpened(false);
+            }
+        }
+        
     }//GEN-LAST:event_btnAceptarMouseClicked
 
     private void txtMontoComponentRemoved(java.awt.event.ContainerEvent evt) {//GEN-FIRST:event_txtMontoComponentRemoved
@@ -276,15 +288,9 @@ public class friCCAgregar extends javax.swing.JInternalFrame {
             cmbEstado.setSelectedItem(getEstado_cctabla);
             txtComprobante.setText(getComprobante_cctabla);
             
-            //Date obtenerFecha = jdcFecha.getDate();
-            //java.sql.Date fecha_cctabla = new java.sql.Date(obtenerFecha.getTime());
-            //String motivo_cctabla = txaMotivo.getText();
-            //Double monto_cctabla = Double.valueOf(txtMonto.getText());
-            //String metodo_cctabla = (String) cmbMetodo.getSelectedItem();
-            //String estado_cctabla = (String) cmbEstado.getSelectedItem();
-            //String comprobante_cctabla = txtComprobante.getText();
+            //TODO este código debe interactuar a través del btnAceptar y no desde este evt.
             
-            //mcctbl.Editar(fecha_cctabla, motivo_cctabla, monto_cctabla, metodo_cctabla, estado_cctabla, comprobante_cctabla);
+//            
         }
     }//GEN-LAST:event_formInternalFrameActivated
 
