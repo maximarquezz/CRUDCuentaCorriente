@@ -276,17 +276,15 @@ public class friCCAgregar extends javax.swing.JInternalFrame {
             cmbEstado.setSelectedItem(getEstado_cctabla);
             txtComprobante.setText(getComprobante_cctabla);
             
-            Date obtenerFecha = jdcFecha.getDate();
-            java.sql.Date fecha_cctabla = new java.sql.Date(obtenerFecha.getTime());
-            String motivo_cctabla = txaMotivo.getText();
-            Double monto_cctabla = Double.valueOf(txtMonto.getText());
-            String metodo_cctabla = (String) cmbMetodo.getSelectedItem();
-            String estado_cctabla = (String) cmbEstado.getSelectedItem();
-            String comprobante_cctabla = txtComprobante.getText();
+            //Date obtenerFecha = jdcFecha.getDate();
+            //java.sql.Date fecha_cctabla = new java.sql.Date(obtenerFecha.getTime());
+            //String motivo_cctabla = txaMotivo.getText();
+            //Double monto_cctabla = Double.valueOf(txtMonto.getText());
+            //String metodo_cctabla = (String) cmbMetodo.getSelectedItem();
+            //String estado_cctabla = (String) cmbEstado.getSelectedItem();
+            //String comprobante_cctabla = txtComprobante.getText();
             
-            mcctbl.Editar(fecha_cctabla, motivo_cctabla, monto_cctabla, metodo_cctabla, estado_cctabla, comprobante_cctabla);
-            dispose();
-            mcctbl.setIfEditWindowOpened(false);
+            //mcctbl.Editar(fecha_cctabla, motivo_cctabla, monto_cctabla, metodo_cctabla, estado_cctabla, comprobante_cctabla);
         }
     }//GEN-LAST:event_formInternalFrameActivated
 
