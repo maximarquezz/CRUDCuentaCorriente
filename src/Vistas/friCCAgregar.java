@@ -1,11 +1,10 @@
 package Vistas;
 
 import Modelos.modCCTabla;
+import Modelos.modCCTablaDAO;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 public class friCCAgregar extends javax.swing.JInternalFrame {
@@ -22,7 +21,6 @@ public class friCCAgregar extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jSeparator3 = new javax.swing.JSeparator();
         btnAceptar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
         txtComprobante = new javax.swing.JTextField();
@@ -218,9 +216,9 @@ public class friCCAgregar extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnAnexarComprobanteActionPerformed
 
     private void btnAceptarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAceptarMouseClicked
-        modCCTabla mcctbl = new modCCTabla();
+        modCCTablaDAO mcctblDAO = new modCCTablaDAO();
         
-        if(mcctbl.getIfEditWindowOpened()){
+        if(mcctblDAO.getIfEditWindowOpened()){
             Date obtenerFecha = jdcFecha.getDate();
             java.sql.Date fecha_cctabla = new java.sql.Date(obtenerFecha.getTime());
             String motivo_cctabla = txaMotivo.getText();
@@ -229,8 +227,8 @@ public class friCCAgregar extends javax.swing.JInternalFrame {
             String estado_cctabla = (String) cmbEstado.getSelectedItem();
             String comprobante_cctabla = txtComprobante.getText();
             
-            mcctbl.Editar(fecha_cctabla, motivo_cctabla, monto_cctabla, metodo_cctabla, estado_cctabla, comprobante_cctabla);
-            mcctbl.setIfEditWindowOpened(false);
+            mcctblDAO.Editar(fecha_cctabla, motivo_cctabla, monto_cctabla, metodo_cctabla, estado_cctabla, comprobante_cctabla);
+            mcctblDAO.setIfEditWindowOpened(false);
             dispose();
         }
         else{
@@ -253,9 +251,9 @@ public class friCCAgregar extends javax.swing.JInternalFrame {
             }else if(estado_cctabla.isEmpty()){
                 JOptionPane.showMessageDialog(null, "El campo \"Estado\" no puede estar vacío");
             }else{
-                mcctbl.Insertar(fecha_cctabla, motivo_cctabla, monto_cctabla, metodo_cctabla, estado_cctabla, comprobante_cctabla);
+                mcctblDAO.Insertar(fecha_cctabla, motivo_cctabla, monto_cctabla, metodo_cctabla, estado_cctabla, comprobante_cctabla);
                 dispose();
-                mcctbl.setIfEditWindowOpened(false);
+                mcctblDAO.setIfEditWindowOpened(false);
             }
         }
         
@@ -271,8 +269,9 @@ public class friCCAgregar extends javax.swing.JInternalFrame {
 
     private void formInternalFrameActivated(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameActivated
         modCCTabla mcctbl = new modCCTabla();
+        modCCTablaDAO mcctblDAO = new modCCTablaDAO();
         
-        if(mcctbl.getIfEditWindowOpened()){
+        if(mcctblDAO.getIfEditWindowOpened()){
             JOptionPane.showMessageDialog(null, "Se está editando un registro");
             Date getFecha_cctabla = modCCTabla.getFecha_cctabla();
             String getMotivo_cctabla = modCCTabla.getMotivo_cctabla();
@@ -299,7 +298,6 @@ public class friCCAgregar extends javax.swing.JInternalFrame {
     private javax.swing.JComboBox<String> cmbMetodo;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JSeparator jSeparator3;
     private com.toedter.calendar.JDateChooser jdcFecha;
     private javax.swing.JLabel lblCliente;
     private javax.swing.JLabel lblDNI;
