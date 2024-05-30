@@ -55,40 +55,80 @@ public class modCCTabla {
     }
 
     public void setFecha_cctabla(java.util.Date fecha_cctabla) {
-        this.fecha_cctabla = fecha_cctabla;
+        modCCTabla.fecha_cctabla = fecha_cctabla;
     }
 
     public void setMotivo_cctabla(String motivo_cctabla) {
-        this.motivo_cctabla = motivo_cctabla;
+        modCCTabla.motivo_cctabla = motivo_cctabla;
     }
 
     public void setMonto_cctabla(double monto_cctabla) {
-        this.monto_cctabla = monto_cctabla;
+        modCCTabla.monto_cctabla = monto_cctabla;
     }
 
     public void setMetodo_cctabla(String metodo_cctabla) {
-        this.metodo_cctabla = metodo_cctabla;
+        modCCTabla.metodo_cctabla = metodo_cctabla;
     }
 
     public void setEstado_cctabla(String estado_cctabla) {
-        this.estado_cctabla = estado_cctabla;
+        modCCTabla.estado_cctabla = estado_cctabla;
     }
 
     public void setComprobante_cctabla(String comprobante_cctabla) {
-        this.comprobante_cctabla = comprobante_cctabla;
+        modCCTabla.comprobante_cctabla = comprobante_cctabla;
     }
     
     //MÉTODOS ESPECÍFICOS
     public double calcSaldo(DefaultTableModel tblModel){
         double sum = 0;
-        int colIndex = 2;
         int rowCount = tblModel.getRowCount();
         for(int i = 0; i < rowCount; i++){
-            Object valueAt = tblModel.getValueAt(i, colIndex);
+            Object stateOfTransaction = tblModel.getValueAt(i, 4);
+            Object valueAt = tblModel.getValueAt(i, 2);
             
-            if(valueAt instanceof Double){
-                sum += (Double) valueAt;
+            if(stateOfTransaction.toString().equalsIgnoreCase("Pendiente")){
+                if(valueAt instanceof Double){
+                    sum -= (Double) valueAt;
+                }
             }
+            else{
+                if(valueAt instanceof Double){
+                    sum += (Double) valueAt;
+                }
+            } 
+        }
+        return sum;
+    }
+    
+    public double calcDeuda(DefaultTableModel tblModel){
+        double sum = 0;
+        int rowCount = tblModel.getRowCount();
+        for(int i = 0; i < rowCount; i++){
+            Object stateOfTransaction = tblModel.getValueAt(i, 4);
+            
+            if(stateOfTransaction.toString().equalsIgnoreCase("Pendiente")){
+                Object valueAt = tblModel.getValueAt(i, 2);
+                
+                if(valueAt instanceof Double){
+                    sum += (Double) valueAt;
+                }
+            }
+        }
+        return sum;
+    }
+    
+    public double calcIngreso(DefaultTableModel tblModel){
+        double sum = 0;
+        int rowCount = tblModel.getRowCount();
+        for(int i = 0; i < rowCount; i++){
+            Object stateOfTransaction = tblModel.getValueAt(i, 4);
+            Object valueAt = tblModel.getValueAt(i, 2);
+            
+            if(stateOfTransaction.toString().equalsIgnoreCase("Pagado")){
+                if(valueAt instanceof Double){
+                    sum += (Double) valueAt;
+                }
+            }    
         }
         return sum;
     }
@@ -265,7 +305,7 @@ public class modCCTabla {
             ps.setString(4, metodo_cctabla);
             ps.setString(5, estado_cctabla);
             
-            if(comprobante_cctabla.isEmpty()){
+            if(comprobante_cctabla.isEmpty() || comprobante_cctabla.equals("")){
                 ps.setNull(6, java.sql.Types.VARCHAR);
             }
             else{
@@ -319,7 +359,7 @@ public class modCCTabla {
     
     private static boolean isEditWindowOpened;
     public void setIfEditWindowOpened(boolean isEditWindowOpened){
-        this.isEditWindowOpened = isEditWindowOpened;
+        modCCTabla.isEditWindowOpened = isEditWindowOpened;
     }
     public boolean getIfEditWindowOpened(){
         return isEditWindowOpened;

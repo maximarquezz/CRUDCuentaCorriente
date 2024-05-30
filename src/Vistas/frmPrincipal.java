@@ -19,6 +19,7 @@ public class frmPrincipal extends javax.swing.JFrame {
         mnbEscritorio = new javax.swing.JMenuBar();
         mnuEscritorio = new javax.swing.JMenu();
         mniCuentaCorriente = new javax.swing.JMenuItem();
+        mniRestaurar = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Software Clubs");
@@ -47,6 +48,15 @@ public class frmPrincipal extends javax.swing.JFrame {
         });
         mnuEscritorio.add(mniCuentaCorriente);
 
+        mniRestaurar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        mniRestaurar.setText("Restaurar");
+        mniRestaurar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniRestaurarActionPerformed(evt);
+            }
+        });
+        mnuEscritorio.add(mniRestaurar);
+
         mnbEscritorio.add(mnuEscritorio);
 
         setJMenuBar(mnbEscritorio);
@@ -66,12 +76,16 @@ public class frmPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void mniCuentaCorrienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniCuentaCorrienteActionPerformed
-        // TODO add your handling code here:
-        
         friCCListar fricclistar = new friCCListar();
         jdpEscritorio.add(fricclistar);
         fricclistar.show();
     }//GEN-LAST:event_mniCuentaCorrienteActionPerformed
+
+    private void mniRestaurarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniRestaurarActionPerformed
+        friCCHistorial fricchistorial = new friCCHistorial();
+        jdpEscritorio.add(fricchistorial);
+        fricchistorial.show();
+    }//GEN-LAST:event_mniRestaurarActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -122,6 +136,7 @@ public class frmPrincipal extends javax.swing.JFrame {
     public static javax.swing.JDesktopPane jdpEscritorio;
     private javax.swing.JMenuBar mnbEscritorio;
     private javax.swing.JMenuItem mniCuentaCorriente;
+    private javax.swing.JMenuItem mniRestaurar;
     private javax.swing.JMenu mnuEscritorio;
     // End of variables declaration//GEN-END:variables
 

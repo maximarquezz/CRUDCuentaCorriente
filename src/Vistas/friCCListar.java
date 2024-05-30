@@ -50,6 +50,10 @@ public class friCCListar extends javax.swing.JInternalFrame {
         lblSaldoFiltro = new javax.swing.JLabel();
         lblSaldoFiltroCalculo = new javax.swing.JLabel();
         btnActualizarCambios = new javax.swing.JButton();
+        lblDeuda = new javax.swing.JLabel();
+        lblDeudaCalculo = new javax.swing.JLabel();
+        lblIngresoCalculo = new javax.swing.JLabel();
+        lblIngreso = new javax.swing.JLabel();
 
         setClosable(true);
         setTitle("Cuenta Corriente: listar");
@@ -176,7 +180,7 @@ public class friCCListar extends javax.swing.JInternalFrame {
         lblCCStatus.setText("Estado de la cuenta corriente");
 
         lblSaldoFiltro.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lblSaldoFiltro.setText("Saldo (con filtro):");
+        lblSaldoFiltro.setText("Saldo (filtro):");
 
         lblSaldoFiltroCalculo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lblSaldoFiltroCalculo.setText("-$500");
@@ -187,6 +191,18 @@ public class friCCListar extends javax.swing.JInternalFrame {
                 btnActualizarCambiosMouseClicked(evt);
             }
         });
+
+        lblDeuda.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblDeuda.setText("Deuda:");
+
+        lblDeudaCalculo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lblDeudaCalculo.setText("-$500");
+
+        lblIngresoCalculo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lblIngresoCalculo.setText("-$500");
+
+        lblIngreso.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblIngreso.setText("Ingreso:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -207,14 +223,24 @@ public class friCCListar extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(lblSaldoTotal)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblSaldoTotalCalculo))
-                            .addGroup(layout.createSequentialGroup()
                                 .addComponent(lblSaldoFiltro)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblSaldoFiltroCalculo)))
-                        .addGap(0, 0, Short.MAX_VALUE))
+                                .addComponent(lblSaldoFiltroCalculo))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(lblSaldoTotal)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblSaldoTotalCalculo)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(lblDeuda)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblDeudaCalculo))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(lblIngreso)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblIngresoCalculo)))
+                        .addGap(34, 34, 34))
                     .addComponent(scpCuentaCliente, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 635, Short.MAX_VALUE)
                     .addComponent(lblNombreCliente, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -259,19 +285,30 @@ public class friCCListar extends javax.swing.JInternalFrame {
                     .addComponent(panComprobante, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblSaldoFiltro)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(lblSaldoFiltro)
+                        .addComponent(lblSaldoFiltroCalculo))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(btnAgregar)
                         .addComponent(btnEditar)
                         .addComponent(btnEliminar)
-                        .addComponent(btnComprobante, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(lblSaldoFiltroCalculo)))
+                        .addComponent(btnComprobante, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(lblDeuda)
+                        .addComponent(lblDeudaCalculo)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnActualizarCambios)
-                    .addComponent(lblSaldoTotal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblSaldoTotalCalculo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(15, 15, 15))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnActualizarCambios)
+                            .addComponent(lblSaldoTotal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblSaldoTotalCalculo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblIngreso)
+                            .addComponent(lblIngresoCalculo))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
 
         pack();
@@ -305,6 +342,12 @@ public class friCCListar extends javax.swing.JInternalFrame {
         double saldoTot = mcctbl.calcSaldo(tblModel);
         saldoTot = -(saldoTot);
         lblSaldoFiltroCalculo.setText("$" + String.valueOf(saldoTot));
+        
+        double deudaTot = mcctbl.calcDeuda(tblModel);
+        lblDeudaCalculo.setText("$" + String.valueOf(deudaTot));
+        
+        double ingresoTot = mcctbl.calcIngreso(tblModel);
+        lblIngresoCalculo.setText("$" + String.valueOf(ingresoTot));
     }//GEN-LAST:event_btnBuscarMouseClicked
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
@@ -336,6 +379,12 @@ public class friCCListar extends javax.swing.JInternalFrame {
         saldoTot = -(saldoTot);
         lblSaldoTotalCalculo.setText("$" + String.valueOf(saldoTot));
         lblSaldoFiltroCalculo.setText("$" + String.valueOf(saldoTot));
+        
+        double deudaTot = mcctbl.calcDeuda(tblModel);
+        lblDeudaCalculo.setText("$" + String.valueOf(deudaTot));
+        
+        double ingresoTot = mcctbl.calcIngreso(tblModel);
+        lblIngresoCalculo.setText("$" + String.valueOf(ingresoTot));
     }//GEN-LAST:event_formInternalFrameOpened
 
     private void tblCuentaClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblCuentaClienteMouseClicked
@@ -363,6 +412,12 @@ public class friCCListar extends javax.swing.JInternalFrame {
                         saldoTot = -(saldoTot);
                         lblSaldoTotalCalculo.setText("$" + String.valueOf(saldoTot));
                         lblSaldoFiltroCalculo.setText("$" + String.valueOf(saldoTot));
+                        
+                        double deudaTot = mcctbl.calcDeuda(tblModel);
+                        lblDeudaCalculo.setText("$" + String.valueOf(deudaTot));
+        
+                        double ingresoTot = mcctbl.calcIngreso(tblModel);
+                        lblIngresoCalculo.setText("$" + String.valueOf(ingresoTot));
                     } else {
                         System.out.println("Operación de borrado cancelada.");
                     }
@@ -390,6 +445,12 @@ public class friCCListar extends javax.swing.JInternalFrame {
         saldoTot = -(saldoTot);
         lblSaldoTotalCalculo.setText("$" + String.valueOf(saldoTot));
         lblSaldoFiltroCalculo.setText("$" + String.valueOf(saldoTot));
+        
+        double deudaTot = mcctbl.calcDeuda(tblModel);
+        lblDeudaCalculo.setText("$" + String.valueOf(deudaTot));
+        
+        double ingresoTot = mcctbl.calcIngreso(tblModel);
+        lblIngresoCalculo.setText("$" + String.valueOf(ingresoTot));
     }//GEN-LAST:event_btnActualizarCambiosMouseClicked
 
     private void btnEditarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEditarMouseClicked
@@ -426,6 +487,12 @@ public class friCCListar extends javax.swing.JInternalFrame {
                     saldoTot = -(saldoTot);
                     lblSaldoTotalCalculo.setText("$" + String.valueOf(saldoTot));
                     lblSaldoFiltroCalculo.setText("$" + String.valueOf(saldoTot));
+                    
+                    double deudaTot = mcctbl.calcDeuda(tblModel);
+                    lblDeudaCalculo.setText("$" + String.valueOf(deudaTot));
+        
+                    double ingresoTot = mcctbl.calcIngreso(tblModel);
+                    lblIngresoCalculo.setText("$" + String.valueOf(ingresoTot));
                 }
             }
         }
@@ -441,7 +508,11 @@ public class friCCListar extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnEliminar;
     private javax.swing.JComboBox<String> cmbTipoFiltro;
     private javax.swing.JLabel lblCCStatus;
+    private javax.swing.JLabel lblDeuda;
+    private javax.swing.JLabel lblDeudaCalculo;
     private javax.swing.JLabel lblFiltrarPor;
+    private javax.swing.JLabel lblIngreso;
+    private javax.swing.JLabel lblIngresoCalculo;
     private javax.swing.JLabel lblNombreCliente;
     private javax.swing.JLabel lblNombreCliente1;
     private javax.swing.JLabel lblSaldoFiltro;
