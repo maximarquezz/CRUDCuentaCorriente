@@ -274,23 +274,19 @@ public class friCCAgregar extends javax.swing.JInternalFrame {
         
         if(mcctbl.getIfEditWindowOpened()){
             JOptionPane.showMessageDialog(null, "Se está editando un registro");
-            Date getFecha_cctabla = mcctbl.getFecha_cctabla();
-            String getMotivo_cctabla = mcctbl.getMotivo_cctabla();
-            Double getMonto_cctabla = mcctbl.getMonto_cctabla();
-            String getMetodo_cctabla = mcctbl.getMetodo_cctabla();
-            String getEstado_cctabla = mcctbl.getEstado_cctabla();
-            String getComprobante_cctabla = mcctbl.getComprobante_cctabla();
+            Date getFecha_cctabla = modCCTabla.getFecha_cctabla();
+            String getMotivo_cctabla = modCCTabla.getMotivo_cctabla();
+            Double getMonto_cctabla = modCCTabla.getMonto_cctabla();
+            String getMetodo_cctabla = modCCTabla.getMetodo_cctabla();
+            String getEstado_cctabla = modCCTabla.getEstado_cctabla();
+            String getComprobante_cctabla = modCCTabla.getComprobante_cctabla();
             
             jdcFecha.setDate(getFecha_cctabla);
             txaMotivo.setText(getMotivo_cctabla);
             txtMonto.setText(String.valueOf(getMonto_cctabla));
             cmbMetodo.setSelectedItem(getMetodo_cctabla);
             cmbEstado.setSelectedItem(getEstado_cctabla);
-            txtComprobante.setText(getComprobante_cctabla);
-            
-            //TODO este código debe interactuar a través del btnAceptar y no desde este evt.
-            
-//            
+            txtComprobante.setText(getComprobante_cctabla);    
         }
     }//GEN-LAST:event_formInternalFrameActivated
 
