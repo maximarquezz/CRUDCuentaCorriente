@@ -1,14 +1,13 @@
 package Vistas;
 
 import Modelos.modCCTabla;
+import Modelos.modCCTablaDAO;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Toolkit;
-import java.time.LocalDate;
-import java.util.Date;
-import javax.swing.table.DefaultTableModel;
 import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 public class friCCListar extends javax.swing.JInternalFrame {
 
@@ -293,9 +292,8 @@ public class friCCListar extends javax.swing.JInternalFrame {
                         .addComponent(btnEditar)
                         .addComponent(btnEliminar)
                         .addComponent(btnComprobante, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(lblDeuda)
-                        .addComponent(lblDeudaCalculo)))
+                    .addComponent(lblDeuda)
+                    .addComponent(lblDeudaCalculo))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -331,10 +329,12 @@ public class friCCListar extends javax.swing.JInternalFrame {
         String filtroBusqueda = txtBusqueda.getText();
         String tipoBusqueda = (String) cmbTipoFiltro.getSelectedItem();
         
+        modCCTablaDAO mcctblDAO = new modCCTablaDAO();
         modCCTabla mcctbl = new modCCTabla();
-        mcctbl.Filtrar(filtroBusqueda, tipoBusqueda);
         
-        List<Object[]> rowData = mcctbl.getResult();
+        mcctblDAO.Filtrar(filtroBusqueda, tipoBusqueda);
+        
+        List<Object[]> rowData = mcctblDAO.getResult();
         for(Object[] rowD : rowData){
             tblModel.addRow(rowD);
         }
@@ -367,10 +367,11 @@ public class friCCListar extends javax.swing.JInternalFrame {
     private void formInternalFrameOpened(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameOpened
         DefaultTableModel tblModel = getTableModel();
         modCCTabla mcctbl = new modCCTabla();
+        modCCTablaDAO mcctblDAO = new modCCTablaDAO();
         
-        mcctbl.Filtrar();
+        mcctblDAO.Filtrar();
         
-        List<Object[]> rowData = mcctbl.getResult();
+        List<Object[]> rowData = mcctblDAO.getResult();
         for(Object[] rowD : rowData){
             tblModel.addRow(rowD);
         }
@@ -394,18 +395,19 @@ public class friCCListar extends javax.swing.JInternalFrame {
     private void btnEliminarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEliminarMouseClicked
         int isFocusedRow = tblCuentaCliente.rowAtPoint(evt.getPoint());
         modCCTabla mcctbl = new modCCTabla();
+        modCCTablaDAO mcctblDAO = new modCCTablaDAO();
 
         if (isFocusedRow != -1) {
             int selectedRow = tblCuentaCliente.getSelectedRow();
             if (selectedRow != -1) {
-                int idRow = mcctbl.getIDSelectedRow(selectedRow);
+                int idRow = mcctblDAO.getIDSelectedRow(selectedRow);
                 if (idRow != -1) {
                     // Crear un JOptionPane personalizado con botones "Sí" y "No"
                     int opcion = JOptionPane.showOptionDialog(null, "¿Borrar el registro completo?", "Confirmar Borrado",
                         JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new Object[] {"Sí", "No"}, "Sí");
 
                     if (opcion == JOptionPane.YES_OPTION) {
-                        mcctbl.Borrar(idRow);
+                        mcctblDAO.Borrar(idRow);
                         ((DefaultTableModel) tblCuentaCliente.getModel()).removeRow(selectedRow);
                         DefaultTableModel tblModel = getTableModel();
                         double saldoTot = mcctbl.calcSaldo(tblModel);
@@ -434,9 +436,11 @@ public class friCCListar extends javax.swing.JInternalFrame {
         tblModel.setRowCount(0);
         
         modCCTabla mcctbl = new modCCTabla();
-        mcctbl.Filtrar();
+        modCCTablaDAO mcctblDAO = new modCCTablaDAO();
         
-        List<Object[]> rowData = mcctbl.getResult();
+        mcctblDAO.Filtrar();
+        
+        List<Object[]> rowData = mcctblDAO.getResult();
         for(Object[] rowD : rowData){
             tblModel.addRow(rowD);
         }
@@ -456,11 +460,12 @@ public class friCCListar extends javax.swing.JInternalFrame {
     private void btnEditarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEditarMouseClicked
         int isFocusedRow = tblCuentaCliente.rowAtPoint(evt.getPoint());
         modCCTabla mcctbl = new modCCTabla();
+        modCCTablaDAO mcctblDAO = new modCCTablaDAO();
 
         if (isFocusedRow != -1) {
             int selectedRow = tblCuentaCliente.getSelectedRow();
             if (selectedRow != -1) {
-                int idRow = mcctbl.getIDSelectedRow(selectedRow);
+                int idRow = mcctblDAO.getIDSelectedRow(selectedRow);
                 if (idRow != -1) {
                     DefaultTableModel tblModel = getTableModel();
                     mcctbl.setFecha_cctabla((java.util.Date) tblModel.getValueAt(selectedRow, 0));
@@ -476,8 +481,8 @@ public class friCCListar extends javax.swing.JInternalFrame {
                     mcctbl.setComprobante_cctabla((String) tblModel.getValueAt(selectedRow, 5));
                     System.out.println(tblModel.getValueAt(selectedRow, 5));
                     
-                    mcctbl.setIfEditWindowOpened(true);
-                    mcctbl.setIdOfEditWindow(idRow);
+                    mcctblDAO.setIfEditWindowOpened(true);
+                    mcctblDAO.setIdOfEditWindow(idRow);
                     
                     friCCAgregar friccagregar = new friCCAgregar();
                     frmPrincipal.jdpEscritorio.add(friccagregar);
