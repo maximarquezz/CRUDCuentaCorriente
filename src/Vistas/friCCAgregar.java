@@ -56,7 +56,6 @@ public class friCCAgregar extends javax.swing.JInternalFrame {
             public void internalFrameIconified(javax.swing.event.InternalFrameEvent evt) {
             }
             public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
-                formInternalFrameOpened(evt);
             }
         });
 
@@ -78,11 +77,6 @@ public class friCCAgregar extends javax.swing.JInternalFrame {
 
         txtComprobante.setBackground(new java.awt.Color(242, 242, 242));
         txtComprobante.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "N° Comprobante", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 14))); // NOI18N
-        txtComprobante.addContainerListener(new java.awt.event.ContainerAdapter() {
-            public void componentRemoved(java.awt.event.ContainerEvent evt) {
-                txtComprobanteComponentRemoved(evt);
-            }
-        });
 
         txaMotivo.setColumns(20);
         txaMotivo.setRows(5);
@@ -118,11 +112,6 @@ public class friCCAgregar extends javax.swing.JInternalFrame {
 
         txtMonto.setBackground(new java.awt.Color(242, 242, 242));
         txtMonto.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Monto", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 14))); // NOI18N
-        txtMonto.addContainerListener(new java.awt.event.ContainerAdapter() {
-            public void componentRemoved(java.awt.event.ContainerEvent evt) {
-                txtMontoComponentRemoved(evt);
-            }
-        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -205,10 +194,6 @@ public class friCCAgregar extends javax.swing.JInternalFrame {
         dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
 
-    private void txtComprobanteComponentRemoved(java.awt.event.ContainerEvent evt) {//GEN-FIRST:event_txtComprobanteComponentRemoved
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtComprobanteComponentRemoved
-
     private void btnAnexarComprobanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnexarComprobanteActionPerformed
         friCCComprobante fricccomprobante = new friCCComprobante();
         frmPrincipal.jdpEscritorio.add(fricccomprobante);
@@ -259,20 +244,10 @@ public class friCCAgregar extends javax.swing.JInternalFrame {
         
     }//GEN-LAST:event_btnAceptarMouseClicked
 
-    private void txtMontoComponentRemoved(java.awt.event.ContainerEvent evt) {//GEN-FIRST:event_txtMontoComponentRemoved
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtMontoComponentRemoved
-
-    private void formInternalFrameOpened(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameOpened
-        
-    }//GEN-LAST:event_formInternalFrameOpened
-
     private void formInternalFrameActivated(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameActivated
-        modCCTabla mcctbl = new modCCTabla();
         modCCTablaDAO mcctblDAO = new modCCTablaDAO();
         
         if(mcctblDAO.getIfEditWindowOpened()){
-            JOptionPane.showMessageDialog(null, "Se está editando un registro");
             Date getFecha_cctabla = modCCTabla.getFecha_cctabla();
             String getMotivo_cctabla = modCCTabla.getMotivo_cctabla();
             Double getMonto_cctabla = modCCTabla.getMonto_cctabla();

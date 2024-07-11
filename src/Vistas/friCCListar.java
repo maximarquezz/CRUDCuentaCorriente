@@ -86,11 +86,6 @@ public class friCCListar extends javax.swing.JInternalFrame {
         tblCuentaCliente.setToolTipText("");
         tblCuentaCliente.setGridColor(new java.awt.Color(204, 204, 255));
         tblCuentaCliente.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
-        tblCuentaCliente.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblCuentaClienteMouseClicked(evt);
-            }
-        });
         scpCuentaCliente.setViewportView(tblCuentaCliente);
 
         btnBuscar.setText("Buscar");
@@ -99,25 +94,12 @@ public class friCCListar extends javax.swing.JInternalFrame {
                 btnBuscarMouseClicked(evt);
             }
         });
-        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBuscarActionPerformed(evt);
-            }
-        });
 
         txtBusqueda.setForeground(new java.awt.Color(153, 153, 153));
         txtBusqueda.setText("Buscar...");
         txtBusqueda.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txtBusquedaFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtBusquedaFocusLost(evt);
-            }
-        });
-        txtBusqueda.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtBusquedaActionPerformed(evt);
             }
         });
 
@@ -169,7 +151,7 @@ public class friCCListar extends javax.swing.JInternalFrame {
         lblSaldoTotal.setText("Saldo total:");
 
         lblSaldoTotalCalculo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        lblSaldoTotalCalculo.setText("-$1000");
+        lblSaldoTotalCalculo.setText("$0");
 
         lblFiltrarPor.setText("Filtrar por...");
 
@@ -182,7 +164,7 @@ public class friCCListar extends javax.swing.JInternalFrame {
         lblSaldoFiltro.setText("Saldo (filtro):");
 
         lblSaldoFiltroCalculo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        lblSaldoFiltroCalculo.setText("-$500");
+        lblSaldoFiltroCalculo.setText("$0");
 
         btnActualizarCambios.setText("Actualizar cambios");
         btnActualizarCambios.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -195,10 +177,10 @@ public class friCCListar extends javax.swing.JInternalFrame {
         lblDeuda.setText("Deuda:");
 
         lblDeudaCalculo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        lblDeudaCalculo.setText("-$500");
+        lblDeudaCalculo.setText("$0");
 
         lblIngresoCalculo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        lblIngresoCalculo.setText("-$500");
+        lblIngresoCalculo.setText("$0");
 
         lblIngreso.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblIngreso.setText("Ingreso:");
@@ -239,7 +221,7 @@ public class friCCListar extends javax.swing.JInternalFrame {
                                 .addComponent(lblIngreso)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(lblIngresoCalculo)))
-                        .addGap(34, 34, 34))
+                        .addGap(53, 53, 53))
                     .addComponent(scpCuentaCliente, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 635, Short.MAX_VALUE)
                     .addComponent(lblNombreCliente, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -318,10 +300,6 @@ public class friCCListar extends javax.swing.JInternalFrame {
         friccagregar.show();
     }//GEN-LAST:event_btnAgregarActionPerformed
 
-    private void txtBusquedaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBusquedaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtBusquedaActionPerformed
-
     private void btnBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBuscarMouseClicked
         DefaultTableModel tblModel = getTableModel();
         tblModel.setRowCount(0);
@@ -350,19 +328,10 @@ public class friCCListar extends javax.swing.JInternalFrame {
         lblIngresoCalculo.setText("$" + String.valueOf(ingresoTot));
     }//GEN-LAST:event_btnBuscarMouseClicked
 
-    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnBuscarActionPerformed
-
     private void txtBusquedaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtBusquedaFocusGained
         txtBusqueda.setForeground(Color.BLACK);
         txtBusqueda.setText("");
     }//GEN-LAST:event_txtBusquedaFocusGained
-
-    private void txtBusquedaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtBusquedaFocusLost
-        /*txtBusqueda.setForeground(Color.GRAY);
-        txtBusqueda.setText("Buscar...");*/
-    }//GEN-LAST:event_txtBusquedaFocusLost
 
     private void formInternalFrameOpened(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameOpened
         DefaultTableModel tblModel = getTableModel();
@@ -388,10 +357,6 @@ public class friCCListar extends javax.swing.JInternalFrame {
         lblIngresoCalculo.setText("$" + String.valueOf(ingresoTot));
     }//GEN-LAST:event_formInternalFrameOpened
 
-    private void tblCuentaClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblCuentaClienteMouseClicked
-        
-    }//GEN-LAST:event_tblCuentaClienteMouseClicked
-
     private void btnEliminarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEliminarMouseClicked
         int isFocusedRow = tblCuentaCliente.rowAtPoint(evt.getPoint());
         modCCTabla mcctbl = new modCCTabla();
@@ -402,8 +367,7 @@ public class friCCListar extends javax.swing.JInternalFrame {
             if (selectedRow != -1) {
                 int idRow = mcctblDAO.getIDSelectedRow(selectedRow);
                 if (idRow != -1) {
-                    // Crear un JOptionPane personalizado con botones "Sí" y "No"
-                    int opcion = JOptionPane.showOptionDialog(null, "¿Borrar el registro completo?", "Confirmar Borrado",
+                    int opcion = JOptionPane.showOptionDialog(null, "¿Borrar el registro completo?", "Eliminar un registro",
                         JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new Object[] {"Sí", "No"}, "Sí");
 
                     if (opcion == JOptionPane.YES_OPTION) {
@@ -421,7 +385,7 @@ public class friCCListar extends javax.swing.JInternalFrame {
                         double ingresoTot = mcctbl.calcIngreso(tblModel);
                         lblIngresoCalculo.setText("$" + String.valueOf(ingresoTot));
                     } else {
-                        System.out.println("Operación de borrado cancelada.");
+                        JOptionPane.showMessageDialog(null, "Operación de borrado cancelada.");
                     }
                 }
             }
@@ -469,17 +433,11 @@ public class friCCListar extends javax.swing.JInternalFrame {
                 if (idRow != -1) {
                     DefaultTableModel tblModel = getTableModel();
                     mcctbl.setFecha_cctabla((java.util.Date) tblModel.getValueAt(selectedRow, 0));
-                    System.out.println(tblModel.getValueAt(selectedRow, 0));
                     mcctbl.setMotivo_cctabla((String) tblModel.getValueAt(selectedRow, 1));
-                    System.out.println(tblModel.getValueAt(selectedRow, 1));
                     mcctbl.setMonto_cctabla((double) tblModel.getValueAt(selectedRow, 2));
-                    System.out.println(tblModel.getValueAt(selectedRow, 2));
                     mcctbl.setMetodo_cctabla((String) tblModel.getValueAt(selectedRow, 3));
-                    System.out.println(tblModel.getValueAt(selectedRow, 3));
                     mcctbl.setEstado_cctabla((String) tblModel.getValueAt(selectedRow, 4));
-                    System.out.println(tblModel.getValueAt(selectedRow, 4));
                     mcctbl.setComprobante_cctabla((String) tblModel.getValueAt(selectedRow, 5));
-                    System.out.println(tblModel.getValueAt(selectedRow, 5));
                     
                     mcctblDAO.setIfEditWindowOpened(true);
                     mcctblDAO.setIdOfEditWindow(idRow);

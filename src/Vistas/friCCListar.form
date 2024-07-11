@@ -66,7 +66,7 @@
                               <Component id="lblIngresoCalculo" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="53" max="-2" attributes="0"/>
                   </Group>
                   <Component id="scpCuentaCliente" alignment="1" pref="635" max="32767" attributes="0"/>
                   <Component id="lblNombreCliente" alignment="1" max="32767" attributes="0"/>
@@ -223,9 +223,6 @@
               <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
             </Property>
           </Properties>
-          <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tblCuentaClienteMouseClicked"/>
-          </Events>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="tblCuentaCliente.setDefaultEditor(Object.class, null);&#xa;tblCuentaCliente.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);"/>
           </AuxValues>
@@ -238,7 +235,6 @@
       </Properties>
       <Events>
         <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnBuscarMouseClicked"/>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnBuscarActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="txtBusqueda">
@@ -250,8 +246,6 @@
       </Properties>
       <Events>
         <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtBusquedaFocusGained"/>
-        <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtBusquedaFocusLost"/>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtBusquedaActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="lblNombreCliente">
@@ -348,7 +342,7 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="14" style="0"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="-$1000"/>
+        <Property name="text" type="java.lang.String" value="$0"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="lblFiltrarPor">
@@ -395,7 +389,7 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="14" style="0"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="-$500"/>
+        <Property name="text" type="java.lang.String" value="$0"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="btnActualizarCambios">
@@ -419,7 +413,7 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="14" style="0"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="-$500"/>
+        <Property name="text" type="java.lang.String" value="$0"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="lblIngresoCalculo">
@@ -427,7 +421,7 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="14" style="0"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="-$500"/>
+        <Property name="text" type="java.lang.String" value="$0"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="lblIngreso">
