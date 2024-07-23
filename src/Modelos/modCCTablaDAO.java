@@ -10,21 +10,50 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 
+/**
+ * Proporciona la lógica de acceso a la base de datos según el Data Access Object (DAO).
+ */
 public class modCCTablaDAO {
-    private static int idRow;
-    private static boolean isEditWindowOpened;
-    private logConexion con;
-    private PreparedStatement ps;
-    private ResultSet rs;
-    private final List<Object[]> result = new ArrayList<>();
-    private Object[] rowValues;
-    private int columnCount;
     
+    /**
+     * Crea una nueva instancia de la clase {@code modCCTablaDAO}.
+     * <p>Este constructor vacío no realiza ninguna acción especial y solo inicializa una nueva instancia de la clase.</p>
+     */
+    public modCCTablaDAO(){
+        
+    }
+    
+    /** El ID único que posee cada registro en la tabla. */
+    private static int idRow;
+    /** Determina si la ventana {@link Vistas.friCCAgregar} debe realizar operaciones de edición o agregación de datos. */
+    private static boolean isEditWindowOpened;
+    /** Objeto de tipo {@link Controladores.logConexion} que permite realizar las operaciones con la base de datos. */
+    private logConexion con;
+    /** Objeto de tipo <code>PreparedStatement</code> que permite ejecutar consultas preparadas. */
+    private PreparedStatement ps;
+    /** Objeto de tipo <code>ResultSet</code> que permite la persistencia de los datos obtenidos de las consultas SQL. */
+    private ResultSet rs;
+    /** Colección de datos <code>List</code> que permite almacenar tipos genéricos; En este caso, un array de Object. */
+    private final List<Object[]> result = new ArrayList<>();
+    /** Array de Object que almacena los valores obtenidos de los registros de la tabla. */
+    private Object[] rowValues;
+    
+    /**
+     * Getter de la variable <code>result</code>.
+     * @return <code>result</code>
+     */
     public List<Object[]> getResult(){
         return this.result;
     }
     
-    public void Filtrar(String filtroBusqueda, String tipoBusqueda){
+    /**
+     * Se encarga de filtrar los registros de la base de datos según un "combo box" que determina el campo por el cuál se filtrará la información, y su respectiva cadena de caracteres que funciona como filtro.
+     * @param filtroBusqueda Almacena la cadena de caracteres que funcionan como filtro en la consulta SQL para realizar la búsqueda de uno o más registros (se recibe de {@link Vistas.friCCListar}.
+     * @param tipoBusqueda Almacena la cadena de caracteres que determinan por qué campo de la base de datos se filtrarán los registros (se recibe de {@link Vistas.friCCListar}.
+     * @throws ClassNotFoundException Si el controlador JDBC no se encuentra.
+     * @throws SQLException Si se produce un error en el acceso a la base de datos u otros errores relacionados.
+     */
+    public void Filtrar(String filtroBusqueda, String tipoBusqueda) throws ClassNotFoundException, SQLException{
         con = new logConexion();
         Connection accesoBBDD = con.conectar();
         
@@ -88,7 +117,12 @@ public class modCCTablaDAO {
         }
     }
     
-    public void Filtrar(){
+    /**
+     * Se encarga de hacer una consulta general de todos los datos almacenados en la base de datos.
+     * @throws ClassNotFoundException Si el controlador JDBC no se encuentra.
+     * @throws SQLException Si se produce un error en el acceso a la base de datos u otros errores relacionados.
+     */
+    public void Filtrar() throws ClassNotFoundException, SQLException{
         con = new logConexion();
         Connection accesoBBDD = con.conectar();
         
@@ -126,7 +160,13 @@ public class modCCTablaDAO {
         }
     }
     
-    public void Borrar(Object idRow) {
+    /**
+     * Se encarga de borrar un registro en la base de datos por ID.
+     * @param idRow Almacena el ID del registro seleccionado en la tabla del formulario que se encuentra en {@link Vistas.friCCListar}.
+     * @throws ClassNotFoundException Si el controlador JDBC no se encuentra.
+     * @throws SQLException Si se produce un error en el acceso a la base de datos u otros errores relacionados.
+     */
+    public void Borrar(Object idRow) throws ClassNotFoundException, SQLException {
         con = new logConexion();
         Connection accesoBBDD = con.conectar();
         
@@ -156,7 +196,14 @@ public class modCCTablaDAO {
         }
     }
     
-    public int getIDSelectedRow(int selectedRow){
+    /**
+     * Obtiene el ID de una determinada fila de la tabla en {@link Vistas.friCCListar} (véanse los eventos btnEliminarMouseClicked y btnEditarMouseClicked).
+     * @param selectedRow Devuelve un entero que identifica el índice de la fila seleccionada en la tabla en {@link Vistas.friCCListar}.
+     * @return El <code>id</code> del registro en la tabla asociado al registro de la base de datos. 
+     * @throws ClassNotFoundException Si el controlador JDBC no se encuentra.
+     * @throws SQLException Si se produce un error en el acceso a la base de datos u otros errores relacionados.
+     */
+    public int getIDSelectedRow(int selectedRow) throws ClassNotFoundException, SQLException{
         int id = -1;
         con = new logConexion();
         Connection accesoBBDD = con.conectar();
@@ -175,7 +222,18 @@ public class modCCTablaDAO {
     return id;
     }
     
-    public void Insertar(java.sql.Date fecha_cctabla, String motivo_cctabla, Double monto_cctabla, String metodo_cctabla, String estado_cctabla, String comprobante_cctabla){
+    /**
+     * Inserta un registro en la base de datos según los parámetros recibidos de {@link Vistas.friCCListar}.
+     * @param fecha_cctabla Recibe la fecha en que se realizó el movimiento en la cuenta corriente determinada.
+     * @param motivo_cctabla Recibe el motivo por el cuál se realizó el movimiento en la cuenta corriente determinada.
+     * @param monto_cctabla Recibe el monto asociado al movimiento específico de la cuenta corriente.
+     * @param metodo_cctabla Recibe el método de pago asociado al movimiento específico de la cuenta corriente.
+     * @param estado_cctabla Recibe el estado del movimiento específico de la cuenta corriente.
+     * @param comprobante_cctabla Recibe el número de comprobante del movimiento específico de la cuenta corriente.
+     * @throws ClassNotFoundException Si el controlador JDBC no se encuentra.
+     * @throws SQLException Si se produce un error en el acceso a la base de datos u otros errores relacionados.
+     */
+    public void Insertar(java.sql.Date fecha_cctabla, String motivo_cctabla, Double monto_cctabla, String metodo_cctabla, String estado_cctabla, String comprobante_cctabla) throws ClassNotFoundException, SQLException{
         con = new logConexion();
         Connection accesoBBDD = con.conectar();
         
@@ -216,34 +274,65 @@ public class modCCTablaDAO {
         }
     }
     
+    /**
+     * Setter de <code>idRow</code>.
+     * @param idRow Se almacena temporalmente el ID en la variable de clase <code>modCCTablaDAO.idRow</code>
+     */
     public void setIdOfEditWindow(int idRow){
         modCCTablaDAO.idRow = idRow;
     }
+    /**
+     * Getter de <code>idRow</code>.
+     * @return idRow.
+     */
     public int getIdOfEditWindow(){
         return idRow;
     }
     
+    /**
+     * Setter del Object[] <code>rowValues</code>.
+     * @param rowValues Se almacenan los valores asociados a todas las filas de la tabla en {@link Vistas.friCCListar}.
+     */
     public void setRowValues(Object[] rowValues){
         this.rowValues = rowValues;
     }
+    
+    /**
+     * Getter del Object[] <code>rowValues</code>.
+     * @return rowValues.
+     */
     public Object[] getRowValues(){
         return rowValues;
     }
-    public void setColumnCount(int columnCount){
-        this.columnCount = columnCount;
-    }
-    public int getColumnCount(){
-        return columnCount;
-    }
     
+    /**
+     * Determina si la {@link Vistas.friCCAgregar} está en modo de edición (true) o no (false).
+     * @param isEditWindowOpened 
+     */
     public void setIfEditWindowOpened(boolean isEditWindowOpened){
         modCCTablaDAO.isEditWindowOpened = isEditWindowOpened;
     }
+    
+    /**
+     * Getter de <code>isEditWindowOpened</code>.
+     * @return isEditWindowOpened.
+     */
     public boolean getIfEditWindowOpened(){
         return isEditWindowOpened;
     }
     
-    public void Editar(java.sql.Date fecha_cctabla, String motivo_cctabla, Double monto_cctabla, String metodo_cctabla, String estado_cctabla, String comprobante_cctabla){
+    /**
+     * Edita un registro en la base de datos según la fila seleccionada en la tabla en {@link Vistas.friCCAgregar}.
+     * @param fecha_cctabla Recibe la fecha en que se realizó el movimiento en la cuenta corriente determinada.
+     * @param motivo_cctabla Recibe el motivo por el cuál se realizó el movimiento en la cuenta corriente determinada.
+     * @param monto_cctabla Recibe el monto asociado al movimiento específico de la cuenta corriente.
+     * @param metodo_cctabla Recibe el método de pago asociado al movimiento específico de la cuenta corriente.
+     * @param estado_cctabla Recibe el estado del movimiento específico de la cuenta corriente.
+     * @param comprobante_cctabla Recibe el número de comprobante del movimiento específico de la cuenta corriente.
+     * @throws ClassNotFoundException Si el controlador JDBC no se encuentra.
+     * @throws SQLException Si se produce un error en el acceso a la base de datos u otros errores relacionados.
+     */
+    public void Editar(java.sql.Date fecha_cctabla, String motivo_cctabla, Double monto_cctabla, String metodo_cctabla, String estado_cctabla, String comprobante_cctabla) throws ClassNotFoundException, SQLException{
         con = new logConexion();
         Connection accesoBBDD = con.conectar();
         

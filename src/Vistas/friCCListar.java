@@ -5,7 +5,10 @@ import Modelos.modCCTablaDAO;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.sql.SQLException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -284,7 +287,11 @@ public class friCCListar extends javax.swing.JInternalFrame {
         modCCTablaDAO mcctblDAO = new modCCTablaDAO();
         modCCTabla mcctbl = new modCCTabla();
         
-        mcctblDAO.Filtrar(filtroBusqueda, tipoBusqueda);
+        try {
+            mcctblDAO.Filtrar(filtroBusqueda, tipoBusqueda);
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(friCCListar.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
         List<Object[]> rowData = mcctblDAO.getResult();
         for(Object[] rowD : rowData){
@@ -312,7 +319,11 @@ public class friCCListar extends javax.swing.JInternalFrame {
         modCCTabla mcctbl = new modCCTabla();
         modCCTablaDAO mcctblDAO = new modCCTablaDAO();
         
-        mcctblDAO.Filtrar();
+        try {
+            mcctblDAO.Filtrar();
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(friCCListar.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
         List<Object[]> rowData = mcctblDAO.getResult();
         for(Object[] rowD : rowData){
@@ -339,28 +350,32 @@ public class friCCListar extends javax.swing.JInternalFrame {
         if (isFocusedRow != -1) {
             int selectedRow = tblCuentaCliente.getSelectedRow();
             if (selectedRow != -1) {
-                int idRow = mcctblDAO.getIDSelectedRow(selectedRow);
-                if (idRow != -1) {
-                    int opcion = JOptionPane.showOptionDialog(null, "¿Borrar el registro completo?", "Eliminar un registro",
-                        JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new Object[] {"Sí", "No"}, "Sí");
-
-                    if (opcion == JOptionPane.YES_OPTION) {
-                        mcctblDAO.Borrar(idRow);
-                        ((DefaultTableModel) tblCuentaCliente.getModel()).removeRow(selectedRow);
-                        DefaultTableModel tblModel = getTableModel();
-                        double saldoTot = mcctbl.calcSaldo(tblModel);
-                        saldoTot = -(saldoTot);
-                        lblSaldoTotalCalculo.setText("$" + String.valueOf(saldoTot));
-                        lblSaldoFiltroCalculo.setText("$" + String.valueOf(saldoTot));
+                try {
+                    int idRow = mcctblDAO.getIDSelectedRow(selectedRow);
+                    if (idRow != -1) {
+                        int opcion = JOptionPane.showOptionDialog(null, "¿Borrar el registro completo?", "Eliminar un registro",
+                                JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new Object[] {"Sí", "No"}, "Sí");
                         
-                        double deudaTot = mcctbl.calcDeuda(tblModel);
-                        lblDeudaCalculo.setText("$" + String.valueOf(deudaTot));
-        
-                        double ingresoTot = mcctbl.calcIngreso(tblModel);
-                        lblIngresoCalculo.setText("$" + String.valueOf(ingresoTot));
-                    } else {
-                        JOptionPane.showMessageDialog(null, "Operación de borrado cancelada.");
+                        if (opcion == JOptionPane.YES_OPTION) {
+                            mcctblDAO.Borrar(idRow);
+                            ((DefaultTableModel) tblCuentaCliente.getModel()).removeRow(selectedRow);
+                            DefaultTableModel tblModel = getTableModel();
+                            double saldoTot = mcctbl.calcSaldo(tblModel);
+                            saldoTot = -(saldoTot);
+                            lblSaldoTotalCalculo.setText("$" + String.valueOf(saldoTot));
+                            lblSaldoFiltroCalculo.setText("$" + String.valueOf(saldoTot));
+                            
+                            double deudaTot = mcctbl.calcDeuda(tblModel);
+                            lblDeudaCalculo.setText("$" + String.valueOf(deudaTot));
+                            
+                            double ingresoTot = mcctbl.calcIngreso(tblModel);
+                            lblIngresoCalculo.setText("$" + String.valueOf(ingresoTot));
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Operación de borrado cancelada.");
+                        }
                     }
+                } catch (ClassNotFoundException | SQLException ex) {
+                    Logger.getLogger(friCCListar.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         }
@@ -376,7 +391,11 @@ public class friCCListar extends javax.swing.JInternalFrame {
         modCCTabla mcctbl = new modCCTabla();
         modCCTablaDAO mcctblDAO = new modCCTablaDAO();
         
-        mcctblDAO.Filtrar();
+        try {
+            mcctblDAO.Filtrar();
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(friCCListar.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
         List<Object[]> rowData = mcctblDAO.getResult();
         for(Object[] rowD : rowData){
@@ -403,33 +422,37 @@ public class friCCListar extends javax.swing.JInternalFrame {
         if (isFocusedRow != -1) {
             int selectedRow = tblCuentaCliente.getSelectedRow();
             if (selectedRow != -1) {
-                int idRow = mcctblDAO.getIDSelectedRow(selectedRow);
-                if (idRow != -1) {
-                    DefaultTableModel tblModel = getTableModel();
-                    mcctbl.setFecha_cctabla((java.util.Date) tblModel.getValueAt(selectedRow, 0));
-                    mcctbl.setMotivo_cctabla((String) tblModel.getValueAt(selectedRow, 1));
-                    mcctbl.setMonto_cctabla((double) tblModel.getValueAt(selectedRow, 2));
-                    mcctbl.setMetodo_cctabla((String) tblModel.getValueAt(selectedRow, 3));
-                    mcctbl.setEstado_cctabla((String) tblModel.getValueAt(selectedRow, 4));
-                    mcctbl.setComprobante_cctabla((String) tblModel.getValueAt(selectedRow, 5));
-                    
-                    mcctblDAO.setIfEditWindowOpened(true);
-                    mcctblDAO.setIdOfEditWindow(idRow);
-                    
-                    friCCAgregar friccagregar = new friCCAgregar();
-                    frmPrincipal.jdpEscritorio.add(friccagregar);
-                    friccagregar.show();
- 
-                    double saldoTot = mcctbl.calcSaldo(tblModel);
-                    saldoTot = -(saldoTot);
-                    lblSaldoTotalCalculo.setText("$" + String.valueOf(saldoTot));
-                    lblSaldoFiltroCalculo.setText("$" + String.valueOf(saldoTot));
-                    
-                    double deudaTot = mcctbl.calcDeuda(tblModel);
-                    lblDeudaCalculo.setText("$" + String.valueOf(deudaTot));
-        
-                    double ingresoTot = mcctbl.calcIngreso(tblModel);
-                    lblIngresoCalculo.setText("$" + String.valueOf(ingresoTot));
+                try {
+                    int idRow = mcctblDAO.getIDSelectedRow(selectedRow);
+                    if (idRow != -1) {
+                        DefaultTableModel tblModel = getTableModel();
+                        mcctbl.setFecha_cctabla((java.util.Date) tblModel.getValueAt(selectedRow, 0));
+                        mcctbl.setMotivo_cctabla((String) tblModel.getValueAt(selectedRow, 1));
+                        mcctbl.setMonto_cctabla((double) tblModel.getValueAt(selectedRow, 2));
+                        mcctbl.setMetodo_cctabla((String) tblModel.getValueAt(selectedRow, 3));
+                        mcctbl.setEstado_cctabla((String) tblModel.getValueAt(selectedRow, 4));
+                        mcctbl.setComprobante_cctabla((String) tblModel.getValueAt(selectedRow, 5));
+                        
+                        mcctblDAO.setIfEditWindowOpened(true);
+                        mcctblDAO.setIdOfEditWindow(idRow);
+                        
+                        friCCAgregar friccagregar = new friCCAgregar();
+                        frmPrincipal.jdpEscritorio.add(friccagregar);
+                        friccagregar.show();
+                        
+                        double saldoTot = mcctbl.calcSaldo(tblModel);
+                        saldoTot = -(saldoTot);
+                        lblSaldoTotalCalculo.setText("$" + String.valueOf(saldoTot));
+                        lblSaldoFiltroCalculo.setText("$" + String.valueOf(saldoTot));
+                        
+                        double deudaTot = mcctbl.calcDeuda(tblModel);
+                        lblDeudaCalculo.setText("$" + String.valueOf(deudaTot));
+                        
+                        double ingresoTot = mcctbl.calcIngreso(tblModel);
+                        lblIngresoCalculo.setText("$" + String.valueOf(ingresoTot));
+                    }
+                } catch (ClassNotFoundException | SQLException ex) {
+                    Logger.getLogger(friCCListar.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         }

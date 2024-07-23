@@ -4,7 +4,10 @@ import Modelos.modCCTabla;
 import Modelos.modCCTablaDAO;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.sql.SQLException;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 public class friCCAgregar extends javax.swing.JInternalFrame {
@@ -195,7 +198,11 @@ public class friCCAgregar extends javax.swing.JInternalFrame {
             String estado_cctabla = (String) cmbEstado.getSelectedItem();
             String comprobante_cctabla = txtComprobante.getText();
             
-            mcctblDAO.Editar(fecha_cctabla, motivo_cctabla, monto_cctabla, metodo_cctabla, estado_cctabla, comprobante_cctabla);
+            try {
+                mcctblDAO.Editar(fecha_cctabla, motivo_cctabla, monto_cctabla, metodo_cctabla, estado_cctabla, comprobante_cctabla);
+            } catch (ClassNotFoundException | SQLException ex) {
+                Logger.getLogger(friCCAgregar.class.getName()).log(Level.SEVERE, null, ex);
+            }
             mcctblDAO.setIfEditWindowOpened(false);
             dispose();
         }
@@ -219,7 +226,11 @@ public class friCCAgregar extends javax.swing.JInternalFrame {
             }else if(estado_cctabla.isEmpty()){
                 JOptionPane.showMessageDialog(null, "El campo \"Estado\" no puede estar vacío");
             }else{
-                mcctblDAO.Insertar(fecha_cctabla, motivo_cctabla, monto_cctabla, metodo_cctabla, estado_cctabla, comprobante_cctabla);
+                try {
+                    mcctblDAO.Insertar(fecha_cctabla, motivo_cctabla, monto_cctabla, metodo_cctabla, estado_cctabla, comprobante_cctabla);
+                } catch (ClassNotFoundException | SQLException ex) {
+                    Logger.getLogger(friCCAgregar.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 mcctblDAO.setIfEditWindowOpened(false);
                 dispose();
             }
