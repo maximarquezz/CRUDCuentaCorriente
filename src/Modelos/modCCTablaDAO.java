@@ -99,7 +99,7 @@ public class modCCTablaDAO {
                     result.add(rowData);
                 }
         }catch (SQLException e) {
-            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "ERROR: " + e.toString());
         } finally {
             try {
                 if (rs != null) {
@@ -112,7 +112,7 @@ public class modCCTablaDAO {
                     accesoBBDD.close();
                 }
             } catch (SQLException e) {
-                e.printStackTrace();
+                JOptionPane.showMessageDialog(null, "ERROR: " + e.toString());
             }
         }
     }
@@ -142,7 +142,7 @@ public class modCCTablaDAO {
                 result.add(rowData);
             }
         }catch (SQLException e) {
-            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "ERROR: " + e.toString());
         } finally {
             try {
                 if (rs != null) {
@@ -155,7 +155,7 @@ public class modCCTablaDAO {
                     accesoBBDD.close();
                 }
             } catch (SQLException e) {
-                e.printStackTrace();
+                JOptionPane.showMessageDialog(null, "ERROR: " + e.toString());
             }
         }
     }
@@ -181,7 +181,7 @@ public class modCCTablaDAO {
                 JOptionPane.showMessageDialog(null, "No se encontró la fila para borrar");
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "ERROR: " + e.toString());
         } finally {
             try {
                 if (ps != null) {
@@ -191,7 +191,7 @@ public class modCCTablaDAO {
                     accesoBBDD.close();
                 }
             } catch (SQLException e) {
-                e.printStackTrace();
+                JOptionPane.showMessageDialog(null, "ERROR: " + e.toString());
             }
         }
     }
@@ -217,7 +217,7 @@ public class modCCTablaDAO {
                 id = rs.getInt("id_cctabla");
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "ERROR: " + e.toString());
         }
     return id;
     }
@@ -262,14 +262,14 @@ public class modCCTablaDAO {
             }
             
         } catch(HeadlessException | SQLException e){
-            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "ERROR: " + e.toString());
         } finally {
             try {
                 if (rs != null) rs.close();
                 if (ps != null) ps.close();
                 if (accesoBBDD != null) accesoBBDD.close();
-            } catch (SQLException ex) {
-                ex.printStackTrace();
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, "ERROR: " + e.toString());
             }
         }
     }
@@ -354,7 +354,7 @@ public class modCCTablaDAO {
                 JOptionPane.showMessageDialog(null, "No se han editado las filas");
             }  
         } catch(HeadlessException | SQLException e){
-            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "ERROR: " + e.toString());
         }
     }
 }
