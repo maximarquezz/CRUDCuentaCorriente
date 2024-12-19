@@ -18,4 +18,4 @@ Una aplicación de escritorio en **Java** para gestionar cuentas corrientes. Inc
 
 1. Clona este repositorio:
    ```bash
-   git clone https://github.com/usuario/gestor-cuentas-corrientes.git
+   git clone https://github.com/maximarquezz/CRUDCuentaCorriente
