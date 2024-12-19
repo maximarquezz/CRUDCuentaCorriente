@@ -91,8 +91,3 @@ En NetBeans, haz clic derecho sobre el proyecto y selecciona `Run`.
    git push origin feature/nueva-funcionalidad
    ```
 4. Abre un Pull Request.
-
---- 
-
-¡Gracias por contribuir!
-```
