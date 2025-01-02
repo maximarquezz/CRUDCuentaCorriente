@@ -6,7 +6,7 @@ Una aplicación de escritorio en **Java** para gestionar cuentas corrientes de s
 
 ## Características
 
-- Gestión completa de cuentas corrientes.
+- Gestión de cuentas corriente (ficticia).
 - Operaciones CRUD para los registros de cuentas.
 - Cálculo automático de saldos, ingresos y deudas.
 - Interfaz gráfica amigable desarrollada con **Swing**.
